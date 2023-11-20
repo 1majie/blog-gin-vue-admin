@@ -1,0 +1,1 @@
+[github.com/flipped-aurora/gin-vue-admin/server]2023/11/15 - 07:31:29.473	[31merror[0m	/Volumes/person/code/blog/after/gin-vue-admin/server/core/server.go:53	net.Listen error: listen tcp :8888: bind: address already in use

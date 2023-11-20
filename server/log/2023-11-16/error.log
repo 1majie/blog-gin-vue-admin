@@ -1,0 +1,3 @@
+[github.com/flipped-aurora/gin-vue-admin/server]2023/11/16 - 07:22:42.036	[31merror[0m	/Volumes/person/code/blog/after/gin-vue-admin/server/core/server.go:53	accept tcp [::]:8888: use of closed network connection
+[github.com/flipped-aurora/gin-vue-admin/server]2023/11/16 - 07:44:27.094	[31merror[0m	/Volumes/person/code/blog/after/gin-vue-admin/server/api/v1/blog/tbl_content.go:37	创建失败!	{"error": "Error 1364 (HY000): Field 'id' doesn't have a default value"}
+[github.com/flipped-aurora/gin-vue-admin/server]2023/11/16 - 08:53:10.202	[31merror[0m	/Volumes/person/code/blog/after/gin-vue-admin/server/core/server.go:53	accept tcp [::]:8888: use of closed network connection
