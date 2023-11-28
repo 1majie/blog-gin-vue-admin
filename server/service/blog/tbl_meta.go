@@ -3,8 +3,8 @@ package blog
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
+	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
 )
 
 type TblMetaService struct {
@@ -66,6 +66,27 @@ func (tblMetaService *TblMetaService)GetTblMetaInfoList(info blogReq.TblMetaSear
        db = db.Limit(limit).Offset(offset)
     }
 	
+	err = db.Find(&tblMetas).Error
+	return  tblMetas, total, err
+}
+
+
+// GetTblMetaInfoListAll 分页获取tblMeta表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (tblMetaService *TblMetaService)GetTblMetaInfoListAll(mateType string) (list []blog.TblMeta, total int64, err error) {
+
+	// 创建db
+	db := global.GVA_DB.Model(&blog.TblMeta{})
+	var tblMetas []blog.TblMeta
+	// 如果有条件搜索 下方会自动创建搜索语句
+
+	db = db.Where("type = ?",mateType)
+
+	err = db.Count(&total).Error
+	if err!=nil {
+		return
+	}
+
 	err = db.Find(&tblMetas).Error
 	return  tblMetas, total, err
 }

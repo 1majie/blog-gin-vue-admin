@@ -97,13 +97,15 @@
             <CustomPic pic-type="file" :pic-src="formData.img" v-if="formData.img" preview />
           </el-form-item>
           <el-form-item label="内容摘要:" prop="summary">
-            <el-input v-model="formData.summary" :clearable="true" placeholder="请输入内容摘要" />
+            <el-input v-model="formData.summary" :clearable="true" :row="5" type="textarea" placeholder="请输入内容摘要" />
           </el-form-item>
           <el-form-item label="内容文字:" prop="content">
             <BasicEditor  @changeValue="change" :html="formData.content"></BasicEditor>
           </el-form-item>
           <el-form-item label="内容类别:" prop="type">
-            <el-input v-model="formData.type" :clearable="true" placeholder="请输入内容类别" />
+            <el-select v-model="formData.type" :clearable="true" placeholder="请选择内容类别" size="medium">
+              <el-option v-for="item in mates" :key="item.name" :label="item.name" :value="item.name" />
+            </el-select>
           </el-form-item>
           <el-form-item label="内容状态:" prop="status">
             <el-select v-model="formData.status" :clearable="true" placeholder="请选择内容状态" size="medium">
@@ -201,6 +203,9 @@ import {
   findTblContent,
   getTblContentList
 } from '@/api/tblContent'
+import {
+  getTblMetaListAll
+} from '@/api/tblMeta'
 
 // 全量引入格式化工具 请按需保留
 import { getDictFunc, formatDate, formatBoolean, filterDict, ReturnArrImg, onDownloadFile } from '@/utils/format'
@@ -246,6 +251,7 @@ const options = [
 ]
 
 
+
 // 验证规则
 const rule = reactive({
 })
@@ -277,7 +283,7 @@ const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
 const searchInfo = ref({})
-
+const mates=ref([])
 // 重置
 const onReset = () => {
   searchInfo.value = {}
@@ -321,6 +327,17 @@ const getTableData = async () => {
 }
 
 getTableData()
+
+
+// 获取所有的菜单列表
+const getTableDataAll = async () => {
+  const table = await getTblMetaListAll({mateType:"菜单"})
+  if (table.code === 0) {
+    mates.value = table.data.list
+  }
+}
+
+getTableDataAll()
 
 // ============== 表格控制部分结束 ===============
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="border: 1px solid #ccc; margin-top: 10px">
+    <div style="border: 1px solid #ccc; margin-top: 10px;z-index: 100;">
       <Toolbar :editor="editorRef" :defaultConfig="toolbarConfig" :mode="mode" style="border-bottom: 1px solid #ccc" />
       <Editor :defaultConfig="editorConfig" :mode="mode" v-model="valueHtml" style="height: 400px; overflow-y: hidden"
         @onCreated="handleCreated" @onChange="handleChange" @onDestroyed="handleDestroyed" @onFocus="handleFocus"

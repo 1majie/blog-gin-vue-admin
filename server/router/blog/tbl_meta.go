@@ -23,5 +23,6 @@ func (s *TblMetaRouter) InitTblMetaRouter(Router *gin.RouterGroup) {
 	{
 		tblMetaRouterWithoutRecord.GET("findTblMeta", tblMetaApi.FindTblMeta)        // 根据ID获取tblMeta表
 		tblMetaRouterWithoutRecord.GET("getTblMetaList", tblMetaApi.GetTblMetaList)  // 获取tblMeta表列表
+		tblMetaRouterWithoutRecord.GET("getTblMetaListAll", tblMetaApi.GetTblMetaListAll)  // 获取tblMeta表列表
 	}
 }

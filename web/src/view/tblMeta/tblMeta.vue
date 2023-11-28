@@ -47,11 +47,11 @@
         <el-table-column align="left" label="日期" width="180">
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
+        <el-table-column align="left" label="项目名称" prop="name" width="120" />
+        <el-table-column align="left" label="项目类型" prop="type" width="120" />
+        <el-table-column align="left" label="内容排序" prop="order" width="120" />
         <el-table-column align="left" label="内容个数" prop="count" width="120" />
         <el-table-column align="left" label="项目描述" prop="description" width="120" />
-        <el-table-column align="left" label="项目名称" prop="name" width="120" />
-        <el-table-column align="left" label="内容排序" prop="order" width="120" />
-        <el-table-column align="left" label="项目类型" prop="type" width="120" />
         <el-table-column align="left" label="操作" min-width="120">
           <template #default="scope">
             <el-button type="primary" link class="table-button" @click="getDetails(scope.row)">

@@ -2,13 +2,13 @@ package blog
 
 import (
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/blog"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
-    blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
-    "github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-    "github.com/flipped-aurora/gin-vue-admin/server/service"
-    "github.com/gin-gonic/gin"
-    "go.uber.org/zap"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
+	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type TblMetaApi struct {
@@ -164,4 +164,28 @@ func (tblMetaApi *TblMetaApi) GetTblMetaList(c *gin.Context) {
             PageSize: pageInfo.PageSize,
         }, "获取成功", c)
     }
+}
+
+
+// GetTblMetaListAll 分页获取tblMeta表列表
+// @Tags TblMeta
+// @Summary 分页获取tblMeta表列表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data query blogReq.TblMetaSearch true "分页获取tblMeta表列表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"获取成功"}"
+// @Router /tblMeta/getTblMetaListAll [get]
+func (tblMetaApi *TblMetaApi) GetTblMetaListAll(c *gin.Context) {
+	var mateType string
+	mateType=c.Query("mateType")
+	if list, total, err := tblMetaService.GetTblMetaInfoListAll(mateType); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithDetailed(response.PageResult{
+			List:     list,
+			Total:    total,
+		}, "获取成功", c)
+	}
 }
