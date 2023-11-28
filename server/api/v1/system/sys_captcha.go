@@ -1,11 +1,13 @@
 package system
 
 import (
+	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
 	"time"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	systemRes "github.com/flipped-aurora/gin-vue-admin/server/model/system/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/service"
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"
 	"go.uber.org/zap"
@@ -14,7 +16,7 @@ import (
 // 当开启多服务器部署时，替换下面的配置，使用redis共享存储验证码
 // var store = captcha.NewDefaultRedisStore()
 var store = base64Captcha.DefaultMemStore
-
+var tblContentService = service.ServiceGroupApp.BlogServiceGroup.TblContentService
 type BaseApi struct{}
 
 // Captcha
@@ -58,6 +60,26 @@ func (b *BaseApi) Captcha(c *gin.Context) {
 	}, "验证码获取成功", c)
 }
 
+func (b *BaseApi) GetTblContentList(c *gin.Context) {
+	var pageInfo blogReq.TblContentSearch
+	err := c.ShouldBindQuery(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if list, total, err := tblContentService.GetTblContentInfoList(pageInfo); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		result := response.PageResult{
+			List:     list,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PageSize,
+		}
+		response.OkWithDetailed(result, "获取成功", c)
+	}
+}
 // 类型转换
 func interfaceToInt(v interface{}) (i int) {
 	switch v := v.(type) {

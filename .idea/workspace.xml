@@ -2,15 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a377cee4-f0dc-4eee-a4c6-dfaa6611cd45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/blog/tbl_meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/blog/tbl_meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/blog/tbl_meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/blog/tbl_meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/blog/tbl_meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/blog/tbl_meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/api/tblMeta.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/api/tblMeta.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/components/editor/BasicEditor.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/components/editor/BasicEditor.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/view/tblContent/tblContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/view/tblContent/tblContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/view/tblMeta/tblMeta.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/view/tblMeta/tblMeta.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/api/v1/system/sys_captcha.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/system/sys_captcha.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/router/system/sys_base.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/sys_base.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
