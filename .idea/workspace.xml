@@ -2,9 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a377cee4-f0dc-4eee-a4c6-dfaa6611cd45" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/web/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/.idea/jsLinters/eslint.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/.idea/web.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/api/v1/blog/tbl_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/blog/tbl_content.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/api/v1/system/sys_captcha.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/system/sys_captcha.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/model/blog/tbl_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/model/blog/tbl_content.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/router/system/sys_base.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/sys_base.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/service/blog/tbl_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/blog/tbl_content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/service/blog/tbl_content_meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/blog/tbl_content_meta.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/view/tblContent/tblContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/view/tblContent/tblContent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/src/view/tblMeta/tblMeta.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/view/tblMeta/tblMeta.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

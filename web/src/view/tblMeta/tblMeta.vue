@@ -159,12 +159,12 @@ const options = [
     label: '菜单',
   },
   {
-    value: '标签类型',
-    label: '标签类型',
+    value: '标签',
+    label: '标签',
   },
   {
-    value: '链接类型',
-    label: '链接类型',
+    value: '链接',
+    label: '链接',
   }
 ]
 

@@ -2,23 +2,23 @@
   <div>
     <div class="gva-search-box">
       <el-form ref="elSearchFormRef" :inline="true" :model="searchInfo" class="demo-form-inline" :rules="searchRule"
-        @keyup.enter="onSubmit">
+               @keyup.enter="onSubmit">
         <el-form-item label="创建日期" prop="createdAt">
           <template #label>
             <span>
               创建日期
               <el-tooltip content="搜索范围是开始日期（包含）至结束日期（不包含）">
                 <el-icon>
-                  <QuestionFilled />
+                  <QuestionFilled/>
                 </el-icon>
               </el-tooltip>
             </span>
           </template>
           <el-date-picker v-model="searchInfo.startCreatedAt" type="datetime" placeholder="开始日期"
-            :disabled-date="time => searchInfo.endCreatedAt ? time.getTime() > searchInfo.endCreatedAt.getTime() : false"></el-date-picker>
+                          :disabled-date="time => searchInfo.endCreatedAt ? time.getTime() > searchInfo.endCreatedAt.getTime() : false"></el-date-picker>
           —
           <el-date-picker v-model="searchInfo.endCreatedAt" type="datetime" placeholder="结束日期"
-            :disabled-date="time => searchInfo.startCreatedAt ? time.getTime() < searchInfo.startCreatedAt.getTime() : false"></el-date-picker>
+                          :disabled-date="time => searchInfo.startCreatedAt ? time.getTime() < searchInfo.startCreatedAt.getTime() : false"></el-date-picker>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" icon="search" @click="onSubmit">查询</el-button>
@@ -37,90 +37,99 @@
           </div>
           <template #reference>
             <el-button icon="delete" style="margin-left: 10px;" :disabled="!multipleSelection.length"
-              @click="deleteVisible = true">删除</el-button>
+                       @click="deleteVisible = true">删除
+            </el-button>
           </template>
         </el-popover>
       </div>
       <el-table ref="multipleTable" style="width: 100%" tooltip-effect="dark" :data="tableData" row-key="ID"
-        @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55" />
+                @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55"/>
         <el-table-column align="left" label="日期" width="180">
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
 
-        <el-table-column align="left" label="内容标题" prop="title" width="120" />
-        <el-table-column align="left" label="内容状态" prop="status" width="120" />
-        <el-table-column align="left" label="内容摘要" prop="summary" width="120" />
-        <el-table-column align="left" label="内容类别" prop="type" width="120" />
-        <el-table-column align="left" label="评论数" prop="commentsNum" width="120" />
+        <el-table-column align="left" label="内容标题" prop="title" width="120"/>
+        <el-table-column align="left" label="内容状态" prop="status" width="120"/>
+        <el-table-column align="left" label="内容摘要" prop="summary" width="120"/>
+        <el-table-column align="left" label="内容类别" prop="type" width="120"/>
+        <el-table-column align="left" label="评论数" prop="commentsNum" width="120"/>
         <el-table-column align="left" label="创建时间" width="180">
           <template #default="scope">{{ formatDate(scope.row.createTime) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="踩数量" prop="downNum" width="120" />
-        <el-table-column align="left" label="点赞数量" prop="likesNum" width="120" />
-        <el-table-column align="left" label="分享数量" prop="shareNum" width="120" />
-        <el-table-column align="left" label="内容顺序" prop="order" width="120" />
-        <el-table-column align="left" label="是否评论" prop="allowComment" width="120" />
+        <el-table-column align="left" label="踩数量" prop="downNum" width="120"/>
+        <el-table-column align="left" label="点赞数量" prop="likesNum" width="120"/>
+        <el-table-column align="left" label="分享数量" prop="shareNum" width="120"/>
+        <el-table-column align="left" label="内容顺序" prop="order" width="120"/>
+        <el-table-column align="left" label="是否评论" prop="allowComment" width="120"/>
         <el-table-column align="left" label="修改时间" width="180">
           <template #default="scope">{{ formatDate(scope.row.updateTime) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="浏览数量" prop="viemNum" width="120" />
+        <el-table-column align="left" label="浏览数量" prop="viemNum" width="120"/>
         <el-table-column align="left" label="操作" min-width="120">
           <template #default="scope">
             <el-button type="primary" link class="table-button" @click="getDetails(scope.row)">
               <el-icon style="margin-right: 5px">
-                <InfoFilled />
+                <InfoFilled/>
               </el-icon>
               查看详情
             </el-button>
             <el-button type="primary" link icon="edit" class="table-button"
-              @click="updateTblContentFunc(scope.row)">变更</el-button>
+                       @click="updateTblContentFunc(scope.row)">变更
+            </el-button>
             <el-button type="primary" link icon="delete" @click="deleteRow(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <div class="gva-pagination">
         <el-pagination layout="total, sizes, prev, pager, next, jumper" :current-page="page" :page-size="pageSize"
-          :page-sizes="[10, 30, 50, 100]" :total="total" @current-change="handleCurrentChange"
-          @size-change="handleSizeChange" />
+                       :page-sizes="[10, 30, 50, 100]" :total="total" @current-change="handleCurrentChange"
+                       @size-change="handleSizeChange"/>
       </div>
     </div>
-    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" style="width: 100%;height: 100%;" top="0" :title="type === 'create' ? '添加' : '修改'"
-      destroy-on-close>
-      <el-scrollbar height="98%" >
-        <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" style="width: 100%;" label-width="80px">
+    <el-dialog v-model="dialogFormVisible" :before-close="closeDialog" style="width: 100%;height: 100%;" top="0"
+               :title="type === 'create' ? '添加' : '修改'"
+               destroy-on-close>
+      <el-scrollbar height="98%">
+        <el-form :model="formData" label-position="right" ref="elFormRef" :rules="rule" style="width: 100%;"
+                 label-width="80px">
           <el-form-item label="内容标题:" prop="title">
-            <el-input v-model="formData.title" :clearable="true" placeholder="请输入内容标题" />
+            <el-input v-model="formData.title" :clearable="true" placeholder="请输入内容标题"/>
           </el-form-item>
           <el-form-item label="图片路径:" prop="img">
-            <upload-common @on-success="setImg" />
-            <CustomPic pic-type="file" :pic-src="formData.img" v-if="formData.img" preview />
+            <upload-common @on-success="setImg"/>
+            <CustomPic pic-type="file" :pic-src="formData.img" v-if="formData.img" preview/>
           </el-form-item>
           <el-form-item label="内容摘要:" prop="summary">
-            <el-input v-model="formData.summary" :clearable="true" :row="5" type="textarea" placeholder="请输入内容摘要" />
+            <el-input v-model="formData.summary" :clearable="true" :row="5" type="textarea" placeholder="请输入内容摘要"/>
           </el-form-item>
           <el-form-item label="内容文字:" prop="content">
-            <BasicEditor  @changeValue="change" :html="formData.content"></BasicEditor>
+            <BasicEditor @changeValue="change" :html="formData.content"></BasicEditor>
+          </el-form-item>
+          <el-form-item label="内容标签:" prop="type">
+            <el-select v-model="formData.tags" :clearable="true" placeholder="请选择内容标签" size="medium"  multiple :style="{ width: '45%' }">
+              <el-option v-for="item in tags" :key="item.ID" :label="item.name" :value="item.ID"/>
+            </el-select>
           </el-form-item>
           <el-form-item label="内容类别:" prop="type">
             <el-select v-model="formData.type" :clearable="true" placeholder="请选择内容类别" size="medium">
-              <el-option v-for="item in mates" :key="item.name" :label="item.name" :value="item.name" />
+              <el-option v-for="item in mates" :key="item.name" :label="item.name" :value="item.name"/>
             </el-select>
           </el-form-item>
           <el-form-item label="内容状态:" prop="status">
             <el-select v-model="formData.status" :clearable="true" placeholder="请选择内容状态" size="medium">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
           <el-form-item label="内容顺序:" prop="order">
-            <el-input-number v-model="formData.order" :clearable="true" :min="1" :max="1000"  />
+            <el-input-number v-model="formData.order" :clearable="true" :min="1" :max="1000"/>
           </el-form-item>
           <el-form-item label="保护密码:" prop="password">
-            <el-input v-model="formData.password" :clearable="true" placeholder="请输入保护密码" />
+            <el-input v-model="formData.password" :clearable="true" placeholder="请输入保护密码"/>
           </el-form-item>
           <el-form-item label="是否评论:" prop="allowComment">
             <el-select v-model="formData.allowComment" :clearable="true" placeholder="请选择是否评论" size="medium">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"/>
             </el-select>
           </el-form-item>
         </el-form>
@@ -134,7 +143,7 @@
     </el-dialog>
 
     <el-dialog v-model="detailShow" style="width: 800px" lock-scroll :before-close="closeDetailShow" title="查看详情"
-      destroy-on-close>
+               destroy-on-close>
       <el-scrollbar height="550px">
         <el-descriptions column="1" border>
           <el-descriptions-item label="内容标题">
@@ -208,9 +217,9 @@ import {
 } from '@/api/tblMeta'
 
 // 全量引入格式化工具 请按需保留
-import { getDictFunc, formatDate, formatBoolean, filterDict, ReturnArrImg, onDownloadFile } from '@/utils/format'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { ref, reactive } from 'vue'
+import {getDictFunc, formatDate, formatBoolean, filterDict, ReturnArrImg, onDownloadFile} from '@/utils/format'
+import {ElMessage, ElMessageBox} from 'element-plus'
+import {ref, reactive} from 'vue'
 import UploadCommon from '@/components/upload/common.vue'
 import CustomPic from '@/components/customPic/index.vue'
 import BasicEditor from '@/components/editor/BasicEditor.vue';
@@ -238,6 +247,7 @@ const formData = ref({
   type: '',
   updateTime: new Date(),
   viemNum: 0,
+  tags:[]
 })
 const options = [
   {
@@ -251,10 +261,8 @@ const options = [
 ]
 
 
-
 // 验证规则
-const rule = reactive({
-})
+const rule = reactive({})
 
 const searchRule = reactive({
   createdAt: [
@@ -283,7 +291,8 @@ const total = ref(0)
 const pageSize = ref(10)
 const tableData = ref([])
 const searchInfo = ref({})
-const mates=ref([])
+const mates = ref([])
+const tags = ref([])
 // 重置
 const onReset = () => {
   searchInfo.value = {}
@@ -317,7 +326,7 @@ const handleCurrentChange = (val) => {
 
 // 查询
 const getTableData = async () => {
-  const table = await getTblContentList({ page: page.value, pageSize: pageSize.value, ...searchInfo.value })
+  const table = await getTblContentList({page: page.value, pageSize: pageSize.value, ...searchInfo.value})
   if (table.code === 0) {
     tableData.value = table.data.list
     total.value = table.data.total
@@ -331,13 +340,23 @@ getTableData()
 
 // 获取所有的菜单列表
 const getTableDataAll = async () => {
-  const table = await getTblMetaListAll({mateType:"菜单"})
+  const table = await getTblMetaListAll({mateType: "菜单"})
   if (table.code === 0) {
     mates.value = table.data.list
   }
 }
 
+
+// 获取所有的标签列表
+const getTableDataTags = async () => {
+  const table = await getTblMetaListAll({mateType: "标签"})
+  if (table.code === 0) {
+    tags.value = table.data.list
+  }
+}
+
 getTableDataAll()
+getTableDataTags()
 
 // ============== 表格控制部分结束 ===============
 
@@ -382,10 +401,10 @@ const onDelete = async () => {
     return
   }
   multipleSelection.value &&
-    multipleSelection.value.map(item => {
-      ids.push(item.ID)
-    })
-  const res = await deleteTblContentByIds({ ids })
+  multipleSelection.value.map(item => {
+    ids.push(item.ID)
+  })
+  const res = await deleteTblContentByIds({ids})
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -404,7 +423,7 @@ const type = ref('')
 
 // 更新行
 const updateTblContentFunc = async (row) => {
-  const res = await findTblContent({ ID: row.ID })
+  const res = await findTblContent({ID: row.ID})
   type.value = 'update'
   if (res.code === 0) {
     formData.value = res.data.retblContent
@@ -415,7 +434,7 @@ const updateTblContentFunc = async (row) => {
 
 // 删除行
 const deleteTblContentFunc = async (row) => {
-  const res = await deleteTblContent({ ID: row.ID })
+  const res = await deleteTblContent({ID: row.ID})
   if (res.code === 0) {
     ElMessage({
       type: 'success',
@@ -445,7 +464,7 @@ const openDetailShow = () => {
 // 打开详情
 const getDetails = async (row) => {
   // 打开弹窗
-  const res = await findTblContent({ ID: row.ID })
+  const res = await findTblContent({ID: row.ID})
   if (res.code === 0) {
     formData.value = res.data.retblContent
     openDetailShow()
@@ -474,6 +493,7 @@ const closeDetailShow = () => {
     type: '',
     updateTime: new Date(),
     viemNum: 0,
+    tags:[]
   }
 }
 
@@ -505,6 +525,7 @@ const closeDialog = () => {
     type: '',
     updateTime: new Date(),
     viemNum: 0,
+    tags:[]
   }
 }
 // 弹窗确定
@@ -537,7 +558,7 @@ const enterDialog = async () => {
 //捕获富文本框内容变化并赋值
 const change = value => {
   formData.value.content = value;
-  console.log(formData.value.content );
+  console.log(formData.value.content);
 };
 
 

@@ -1,6 +1,7 @@
 package system
 
 import (
+	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
 	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
 	"time"
 
@@ -59,7 +60,20 @@ func (b *BaseApi) Captcha(c *gin.Context) {
 		OpenCaptcha:   oc,
 	}, "验证码获取成功", c)
 }
-
+func (b *BaseApi) FindTblContent(c *gin.Context) {
+	var tblContent blog.TblContent
+	err := c.ShouldBindQuery(&tblContent)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if retblContent, err := tblContentService.GetTblContent(tblContent.ID); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		response.FailWithMessage("查询失败", c)
+	} else {
+		response.OkWithData(gin.H{"retblContent": retblContent}, c)
+	}
+}
 func (b *BaseApi) GetTblContentList(c *gin.Context) {
 	var pageInfo blogReq.TblContentSearch
 	err := c.ShouldBindQuery(&pageInfo)
