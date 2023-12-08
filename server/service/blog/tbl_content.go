@@ -5,6 +5,7 @@ import (
 	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
 	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/request"
+	"gorm.io/gorm"
 )
 
 type TblContentService struct {
@@ -35,6 +36,13 @@ func (tblContentService *TblContentService) DeleteTblContentByIds(ids request.Id
 // Author [piexlmax](https://github.com/piexlmax)
 func (tblContentService *TblContentService) UpdateTblContent(tblContent blog.TblContent) (err error) {
 	err = global.GVA_DB.Save(&tblContent).Error
+	return err
+}
+
+// UpdateTblContent 更新tblContent表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (tblContentService *TblContentService) UpdateTblContentViewNum(id uint) (err error) {
+	err = global.GVA_DB.Model(&blog.TblContent{}).Where("id = ?", id).UpdateColumn("view_num", gorm.Expr("view_num + ?", 1)).Error
 	return err
 }
 

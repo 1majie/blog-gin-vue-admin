@@ -1,6 +1,7 @@
 package system
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
 	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
 	"time"
@@ -18,6 +19,9 @@ import (
 // var store = captcha.NewDefaultRedisStore()
 var store = base64Captcha.DefaultMemStore
 var tblContentService = service.ServiceGroupApp.BlogServiceGroup.TblContentService
+var tblContentMetaService = service.ServiceGroupApp.BlogServiceGroup.TblContentMetaService
+var tblMetaService = service.ServiceGroupApp.BlogServiceGroup.TblMetaService
+
 type BaseApi struct{}
 
 // Captcha
@@ -71,9 +75,61 @@ func (b *BaseApi) FindTblContent(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
+		var contentId = int(tblContent.ID)
+		tblContentMeta := blog.TblContentMeta{
+			ContentId: &contentId,
+		}
+
+		if list, _, err := tblContentMetaService.GetTblContentMetaInfoListByContentId(tblContentMeta); err != nil {
+			global.GVA_LOG.Error("获取失败!", zap.Error(err))
+			response.FailWithMessage("获取失败", c)
+		} else {
+			var arr []string
+			for _, tblContentMetaInfo := range list {
+				id := uint(*tblContentMetaInfo.MateId)
+				meta, _ := tblMetaService.GetTblMeta(id)
+				arr = append(arr, meta.Name)
+			}
+			retblContent.TagsView = arr
+			fmt.Println(arr)
+		}
 		response.OkWithData(gin.H{"retblContent": retblContent}, c)
 	}
 }
+
+// UpdateTblContentViewNum 更新tblContent表
+// @Tags TblContent
+// @Summary 更新tblContent表
+// @Security ApiKeyAuth
+// @accept application/json
+// @Produce application/json
+// @Param data body blog.TblContent true "更新tblContent表"
+// @Success 200 {string} string "{"success":true,"data":{},"msg":"更新成功"}"
+// @Router /tblContent/updateTblContent [put]
+func (b *BaseApi) UpdateTblContentViewNum(c *gin.Context) {
+	var tblContent blog.TblContent
+	err := c.ShouldBindQuery(&tblContent)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := tblContentService.UpdateTblContentViewNum(tblContent.ID); err != nil {
+		global.GVA_LOG.Error("更新失败!", zap.Error(err))
+		response.FailWithMessage("更新失败", c)
+	} else {
+		response.OkWithMessage("更新成功", c)
+	}
+}
+
+// GetTblContentList
+// @Tags      Base
+// @Summary   获取文章列表
+// @Security  ApiKeyAuth
+// @accept    application/json
+// @Produce   application/json
+// @Param     current  query  int  false  "分页索引"
+// @Param     pageSize query  int  false  "分页大小"
+// @Success   200  {object}  response.Response{data=response.PageResult,msg=string}  "获取文章列表,返回包括列表,总数,
 func (b *BaseApi) GetTblContentList(c *gin.Context) {
 	var pageInfo blogReq.TblContentSearch
 	err := c.ShouldBindQuery(&pageInfo)
@@ -94,6 +150,7 @@ func (b *BaseApi) GetTblContentList(c *gin.Context) {
 		response.OkWithDetailed(result, "获取成功", c)
 	}
 }
+
 // 类型转换
 func interfaceToInt(v interface{}) (i int) {
 	switch v := v.(type) {
