@@ -1,55 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a377cee4-f0dc-4eee-a4c6-dfaa6611cd45" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/.idea/web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/blog/tbl_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/blog/tbl_content.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/api/v1/system/sys_captcha.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/api/v1/system/sys_captcha.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/model/blog/tbl_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/model/blog/tbl_content.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/router/system/sys_base.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/router/system/sys_base.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/blog/tbl_content.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/blog/tbl_content.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/service/blog/tbl_content_meta.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/service/blog/tbl_content_meta.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/view/tblContent/tblContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/view/tblContent/tblContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/view/tblMeta/tblMeta.vue" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/view/tblMeta/tblMeta.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gin-vue-admin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gin-vue-admin.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="GOROOT" url="file://$USER_HOME$/sdk/go1.19.3" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2YPxT6LkYOY30n29Yk0mzYfuThk" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
-    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
-    <property name="go.import.settings.migrated" value="true" />
-    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "D:/code/blog/after/blog-gin-vue-admin/server",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>false</integration-enabled>
+    <settings-migrated>true</settings-migrated>
   </component>
 </project>

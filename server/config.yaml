@@ -12,7 +12,7 @@ autocode:
     server-api: /api/v1/%s
     server-plug: /plugin/%s
     server-initialize: /initialize
-    root: /Volumes/person/code/blog/after/gin-vue-admin
+    root: D:\code\blog\after\blog-gin-vue-admin
     web-table: /view
     web: /web/src
     server-service: /service/%s
@@ -83,7 +83,7 @@ hua-wei-obs:
     access-key: you-access-key
     secret-key: you-secret-key
 jwt:
-    signing-key: 40d77a4d-d902-4fec-80d9-256c42988548
+    signing-key: c533bb5a-3865-4d97-b1af-0e004e384e5e
     expires-time: 7d
     buffer-time: 1d
     issuer: qmPlus
