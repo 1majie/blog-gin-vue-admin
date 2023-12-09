@@ -124,12 +124,18 @@ func (tblContentApi *TblContentApi) UpdateTblContent(c *gin.Context) {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
+		// 先删除关联的标签
+		if err := tblContentMetaService.DeleteTblContentMetaByContentId(tblContent.ID); err != nil {
+			global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		}
+		// 再添加关联的标签
 		for _, tag := range tblContent.Tags {
 			var contentId = int(tblContent.ID)
 			tblContentMate := blog.TblContentMeta{
 				MateId:    &tag,
 				ContentId: &contentId,
 			}
+
 			if err := tblContentMetaService.CreateTblContentMeta(&tblContentMate); err != nil {
 				global.GVA_LOG.Error("创建失败!", zap.Error(err))
 			}

@@ -31,6 +31,13 @@ func (tblContentMetaService *TblContentMetaService) DeleteTblContentMetaByIds(id
 	return err
 }
 
+// DeleteTblContentMetaByContentIds 根据内容ID 批量删除tblContentMeta表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (tblContentMetaService *TblContentMetaService) DeleteTblContentMetaByContentId(id uint) (err error) {
+	err = global.GVA_DB.Delete(&[]blog.TblContentMeta{}, "content_id = ?", id).Error
+	return err
+}
+
 // UpdateTblContentMeta 更新tblContentMeta表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (tblContentMetaService *TblContentMetaService) UpdateTblContentMeta(tblContentMeta blog.TblContentMeta) (err error) {
