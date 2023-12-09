@@ -191,13 +191,22 @@ func (b *BaseApi) GetTblContentList(c *gin.Context) {
 		global.GVA_LOG.Error("获取失败!", zap.Error(err))
 		response.FailWithMessage("获取失败", c)
 	} else {
+
+		var beforePage, nextPage int
+		// 上一页 下一页
+		if pageInfo.Page > 1 {
+			beforePage = pageInfo.Page - 1
+		}
+		if pageInfo.Page < int(total)/pageInfo.PageSize {
+			nextPage = pageInfo.Page + 1
+		}
 		result := response.PageResult{
 			List:     list,
 			Total:    total,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 		}
-		response.OkWithDetailed(result, "获取成功", c)
+		response.OkWithData(gin.H{"result": result, "beforePage": beforePage, "nextPage": nextPage}, c)
 	}
 }
 
