@@ -76,7 +76,7 @@ func (b *BaseApi) FindTblContent(c *gin.Context) {
 		response.FailWithMessage("查询失败", c)
 	} else {
 		// 获取文章内容左侧目录树
-		menus, _ := GetTblContentSubsets(retblContent.BlogSet)
+		menus, back, after, _ := GetTblContentSubsets(retblContent.BlogSet, tblContent.ID)
 		// 获取标签信息
 		var contentId = int(retblContent.ID)
 		tblContentMeta := blog.TblContentMeta{
@@ -95,32 +95,56 @@ func (b *BaseApi) FindTblContent(c *gin.Context) {
 			retblContent.TagsView = arr
 			fmt.Println(arr)
 		}
-		response.OkWithData(gin.H{"retblContent": retblContent, "menus": menus}, c)
+		response.OkWithData(gin.H{"retblContent": retblContent, "menus": menus, "back": back, "after": after}, c)
 	}
 }
 
-// 根据文章集获取文章内容右侧目录
+// 根据文章集获取文章内容右侧目录,并返回当前页面所对应的上一页、下一页
 
-func GetTblContentSubsets(set string) (meues []blog.Menus, err error) {
+func GetTblContentSubsets(set string, id uint) (meues []blog.Menus, back blog.TblContent, after blog.TblContent, err error) {
 	if len(set) == 0 {
-		return meues, err
+		return meues, back, after, err
 	}
 	var results []blog.Results
 	if results, err = tblContentService.GetTblContentSubsets(set); err != nil {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 	}
+	// 默认 向前的状态为true
+	var backStatus = true
+	// 默认 向后的状态为false
+	var afterStatus = false
 	for _, result := range results {
-		var tblContent []blog.TblContent
-		if tblContent, err = tblContentService.GetTblContents(result.Subset); err != nil {
+		var tblContents []blog.TblContent
+		if tblContents, err = tblContentService.GetTblContents(result.Subset); err != nil {
 			global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		}
-		menue := blog.Menus{
-			Subset:      result.Subset,
-			TblContents: tblContent,
+
+		// 设置向前向后的文章内容
+		for _, tblContent := range tblContents {
+			if tblContent.ID == id {
+				if backStatus {
+					backStatus = false
+				}
+				afterStatus = true
+			} else {
+				if backStatus {
+					back = tblContent
+				}
+				if afterStatus {
+					after = tblContent
+					afterStatus = false
+				}
+			}
+
 		}
-		meues = append(meues, menue)
+
+		menu := blog.Menus{
+			Subset:      result.Subset,
+			TblContents: tblContents,
+		}
+		meues = append(meues, menu)
 	}
-	return meues, err
+	return meues, back, after, err
 }
 
 // UpdateTblContentViewNum 更新tblContent表

@@ -71,7 +71,7 @@ func (tblContentService *TblContentService) GetTblContents(subset string) (list 
 	// 创建db
 	db := global.GVA_DB.Model(&blog.TblContent{})
 	var tblContents []blog.TblContent
-	db = db.Where("subset =? order by sequence", subset).Select("id,title,created_at")
+	db = db.Where("subset =? order by sequence", subset).Select("id,title,summary,created_at")
 	err = db.Find(&tblContents).Error
 	return tblContents, err
 }
