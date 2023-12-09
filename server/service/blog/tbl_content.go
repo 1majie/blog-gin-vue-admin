@@ -53,6 +53,29 @@ func (tblContentService *TblContentService) GetTblContent(id uint) (tblContent b
 	return
 }
 
+// GetTblContentSubsets 根据文章集获取文章子集记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (tblContentService *TblContentService) GetTblContentSubsets(set string) (list []blog.Results, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&blog.TblContent{})
+	var tblContents []blog.Results
+	err = db.Find(&tblContents).Error
+	db.Select("subset, min(created_at) as created_at").Where("blog_set =?", set).
+		Group("subset").Find(&tblContents)
+	return tblContents, err
+}
+
+// GetTblContents 根据文章子集获取文章记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (tblContentService *TblContentService) GetTblContents(subset string) (list []blog.TblContent, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&blog.TblContent{})
+	var tblContents []blog.TblContent
+	db = db.Where("subset =? order by sequence", subset).Select("id,title,created_at")
+	err = db.Find(&tblContents).Error
+	return tblContents, err
+}
+
 // GetTblContentInfoList 分页获取tblContent表记录
 // Author [piexlmax](https://github.com/piexlmax)
 func (tblContentService *TblContentService) GetTblContentInfoList(info blogReq.TblContentSearch) (list []blog.TblContent, total int64, err error) {

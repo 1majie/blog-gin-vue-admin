@@ -51,7 +51,7 @@
 
         <el-table-column align="left" label="内容标题" prop="title" width="120"/>
         <el-table-column align="left" label="内容状态" prop="status" width="120"/>
-        <el-table-column align="left" label="内容摘要" prop="summary" width="120"/>
+        <el-table-column align="left" label="内容摘要" prop="summary" width="120" show-overflow-tooltip/>
         <el-table-column align="left" label="内容类别" prop="type" width="120"/>
         <el-table-column align="left" label="评论数" prop="commentsNum" width="120"/>
         <el-table-column align="left" label="创建时间" width="180">
@@ -68,12 +68,6 @@
         <el-table-column align="left" label="浏览数量" prop="viemNum" width="120"/>
         <el-table-column align="left" label="操作" min-width="120">
           <template #default="scope">
-            <el-button type="primary" link class="table-button" @click="getDetails(scope.row)">
-              <el-icon style="margin-right: 5px">
-                <InfoFilled/>
-              </el-icon>
-              查看详情
-            </el-button>
             <el-button type="primary" link icon="edit" class="table-button"
                        @click="updateTblContentFunc(scope.row)">变更
             </el-button>
@@ -115,6 +109,17 @@
             <el-select v-model="formData.type" :clearable="true" placeholder="请选择内容类别" size="medium">
               <el-option v-for="item in mates" :key="item.name" :label="item.name" :value="item.name"/>
             </el-select>
+          </el-form-item>
+          <el-form-item label="文章集:" prop="type">
+            <el-select v-model="formData.blogSet" :clearable="true" placeholder="请选择文章集" size="medium">
+              <el-option v-for="item in sets" :key="item.name" :label="item.name" :value="item.name"/>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="文章子集:" prop="type">
+            <el-select v-model="formData.subset" :clearable="true" placeholder="请选择文章子集" size="medium">
+              <el-option v-for="item in subsets" :key="item.name" :label="item.name" :value="item.name"/>
+            </el-select>
+            <span style="color: red;margin-left:4px;">子集按文章创建时间正序显示</span>
           </el-form-item>
           <el-form-item label="内容状态:" prop="status">
             <el-select v-model="formData.status" :clearable="true" placeholder="请选择内容状态" size="medium">
@@ -293,6 +298,8 @@ const tableData = ref([])
 const searchInfo = ref({})
 const mates = ref([])
 const tags = ref([])
+const sets = ref([])
+const subsets = ref([])
 // 重置
 const onReset = () => {
   searchInfo.value = {}
@@ -335,9 +342,6 @@ const getTableData = async () => {
   }
 }
 
-getTableData()
-
-
 // 获取所有的菜单列表
 const getTableDataAll = async () => {
   const table = await getTblMetaListAll({mateType: "菜单"})
@@ -355,6 +359,24 @@ const getTableDataTags = async () => {
   }
 }
 
+// 获取所有文章集
+const getTableDataSets = async () => {
+  const table = await getTblMetaListAll({mateType: "文章集"})
+  if (table.code === 0) {
+    sets.value = table.data.list
+  }
+}
+
+// 获取所有的文章子集
+const getTableDataSubSets = async () => {
+  const table = await getTblMetaListAll({mateType: "文章子集"})
+  if (table.code === 0) {
+    subsets.value = table.data.list
+  }
+}
+getTableData()
+getTableDataSets()
+getTableDataSubSets()
 getTableDataAll()
 getTableDataTags()
 

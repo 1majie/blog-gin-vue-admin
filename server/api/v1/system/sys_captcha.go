@@ -75,11 +75,13 @@ func (b *BaseApi) FindTblContent(c *gin.Context) {
 		global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		response.FailWithMessage("查询失败", c)
 	} else {
-		var contentId = int(tblContent.ID)
+		// 获取文章内容左侧目录树
+		menus, _ := GetTblContentSubsets(retblContent.BlogSet)
+		// 获取标签信息
+		var contentId = int(retblContent.ID)
 		tblContentMeta := blog.TblContentMeta{
 			ContentId: &contentId,
 		}
-
 		if list, _, err := tblContentMetaService.GetTblContentMetaInfoListByContentId(tblContentMeta); err != nil {
 			global.GVA_LOG.Error("获取失败!", zap.Error(err))
 			response.FailWithMessage("获取失败", c)
@@ -93,8 +95,32 @@ func (b *BaseApi) FindTblContent(c *gin.Context) {
 			retblContent.TagsView = arr
 			fmt.Println(arr)
 		}
-		response.OkWithData(gin.H{"retblContent": retblContent}, c)
+		response.OkWithData(gin.H{"retblContent": retblContent, "menus": menus}, c)
 	}
+}
+
+// 根据文章集获取文章内容右侧目录
+
+func GetTblContentSubsets(set string) (meues []blog.Menus, err error) {
+	if len(set) == 0 {
+		return meues, err
+	}
+	var results []blog.Results
+	if results, err = tblContentService.GetTblContentSubsets(set); err != nil {
+		global.GVA_LOG.Error("查询失败!", zap.Error(err))
+	}
+	for _, result := range results {
+		var tblContent []blog.TblContent
+		if tblContent, err = tblContentService.GetTblContents(result.Subset); err != nil {
+			global.GVA_LOG.Error("查询失败!", zap.Error(err))
+		}
+		menue := blog.Menus{
+			Subset:      result.Subset,
+			TblContents: tblContent,
+		}
+		meues = append(meues, menue)
+	}
+	return meues, err
 }
 
 // UpdateTblContentViewNum 更新tblContent表

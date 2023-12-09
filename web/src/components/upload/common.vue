@@ -1,3 +1,11 @@
+<!--
+ * @Author: freedom 957420317@qq.com
+ * @Date: 2023-12-06 20:43:10
+ * @LastEditors: freedom 957420317@qq.com
+ * @LastEditTime: 2023-12-09 06:32:44
+ * @FilePath: \web\src\components\upload\common.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div>
     <el-upload
@@ -33,7 +41,7 @@ const fullscreenLoading = ref(false)
 
 const checkFile = (file) => {
   fullscreenLoading.value = true
-  const isLt500K = file.size / 1024 / 1024 < 0.5 // 500K, @todo 应支持在项目中设置
+  const isLt500K = file.size / 1024 / 1024 < 5 // 500K, @todo 应支持在项目中设置
   const isLt5M = file.size / 1024 / 1024 < 5 // 5MB, @todo 应支持项目中设置
   const isVideo = isVideoMime(file.type)
   const isImage = isImageMime(file.type)

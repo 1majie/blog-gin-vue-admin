@@ -154,17 +154,26 @@ const formData = ref({
 })
 
 const options = [
+
   {
-    value: '菜单',
-    label: '菜单',
+    value: '文章集',
+    label: '文章集',
+  },
+  {
+    value: '文章子集',
+    label: '文章子集',
   },
   {
     value: '标签',
     label: '标签',
   },
   {
-    value: '链接',
-    label: '链接',
+    value: '外联',
+    label: '外联',
+  }, 
+  {
+    value: '菜单',
+    label: '菜单',
   }
 ]
 
