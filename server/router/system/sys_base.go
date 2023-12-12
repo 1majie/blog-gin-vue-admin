@@ -16,6 +16,7 @@ func (s *BaseRouter) InitBaseRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	}
 	{
 		baseRouter.GET("getTblContentList", baseApi.GetTblContentList)             // 获取tblContent表列表
+		baseRouter.GET("getTblContentAll", baseApi.GetTblContentAll)               // 获取所有的tblContent
 		baseRouter.GET("getTblContent", baseApi.FindTblContent)                    // 获取tblContent 内容
 		baseRouter.GET("UpdateTblContentViewNum", baseApi.UpdateTblContentViewNum) // 获取tblContent表列表
 		baseRouter.GET("GetUserName", baseApi.GetUserName)                         // 获取自身信息

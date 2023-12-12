@@ -104,3 +104,14 @@ func (tblContentService *TblContentService) GetTblContentInfoList(info blogReq.T
 	err = db.Find(&tblContents).Error
 	return tblContents, total, err
 }
+
+// GetTblContentInfoAll 获取所有tblContent表记录
+// Author [piexlmax](https://github.com/piexlmax)
+func (tblContentService *TblContentService) GetTblContentInfoAll() (list []blog.TblContent, total int64, err error) {
+	// 创建db
+	db := global.GVA_DB.Model(&blog.TblContent{})
+	var tblContents []blog.TblContent
+	db.Select("id,title,updated_at")
+	err = db.Find(&tblContents).Error
+	return tblContents, total, err
+}

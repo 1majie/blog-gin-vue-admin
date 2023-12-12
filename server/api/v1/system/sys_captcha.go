@@ -210,6 +210,25 @@ func (b *BaseApi) GetTblContentList(c *gin.Context) {
 	}
 }
 
+// GetTblContentAll
+// @Tags      Base
+// @Summary   获取文章列表
+// @Security  ApiKeyAuth
+// @accept    application/json
+// @Produce   application/json
+// @Param     current  query  int  false  "分页索引"
+// @Param     pageSize query  int  false  "分页大小"
+// @Success   200  {object}  response.Response{data=response.PageResult,msg=string}  "获取文章列表,返回包括列表,总数,
+func (b *BaseApi) GetTblContentAll(c *gin.Context) {
+
+	if list, _, err := tblContentService.GetTblContentInfoAll(); err != nil {
+		global.GVA_LOG.Error("获取失败!", zap.Error(err))
+		response.FailWithMessage("获取失败", c)
+	} else {
+		response.OkWithData(gin.H{"result": list}, c)
+	}
+}
+
 // 类型转换
 func interfaceToInt(v interface{}) (i int) {
 	switch v := v.(type) {
