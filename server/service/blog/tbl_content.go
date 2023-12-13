@@ -88,6 +88,9 @@ func (tblContentService *TblContentService) GetTblContentInfoList(info blogReq.T
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
+	if len(info.Title) > 0 {
+		db = db.Where("title LIKE?", "%"+info.Title+"%")
+	}
 	if len(info.Type) != 0 {
 		db = db.Where("type =?", info.Type)
 	}
