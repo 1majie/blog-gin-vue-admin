@@ -24,6 +24,7 @@
         "highlight.js": "^11.8.0",
         "js-md5": "^0.8.3",
         "marked": "4.3.0",
+        "md-editor-v3": "^4.9.0",
         "mitt": "^3.0.1",
         "nprogress": "^0.2.0",
         "path": "^0.12.7",

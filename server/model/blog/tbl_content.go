@@ -26,6 +26,7 @@ type TblContent struct {
 	Type         string     `json:"type" form:"type" gorm:"column:type;comment:内容类别;size:255;"`                              //内容类别
 	BlogSet      string     `json:"blogSet" form:"blogSet" gorm:"column:blog_set;comment:文章集;size:255;"`                      //文章集
 	Subset       string     `json:"subset" form:"subset" gorm:"column:subset;comment:文章子集;size:255;"`                        //文章子集
+	EditType     string     `json:"editType" form:"editType" gorm:"column:edit_type;comment:编辑器类型;size:255;""`              //编辑器类型 md base
 	Tags         []int      `json:"tags" form:"tags" gorm:"-"`                                                                   //提交标签 不存储
 	TagsView     []string   `json:"tagsView" form:"tagsView" gorm:"-"`                                                           //展示标签 不存储
 	UpdateTime   *time.Time `json:"updateTime" form:"updateTime" gorm:"column:update_time;comment:修改时间;"`                    //修改时间
