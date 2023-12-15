@@ -94,7 +94,7 @@ func (tblContentService *TblContentService) GetTblContentInfoList(info blogReq.T
 	if len(info.Type) != 0 {
 		db = db.Where("type =?", info.Type)
 	}
-
+	db = db.Where("status =?", "允许")
 	err = db.Count(&total).Error
 	if err != nil {
 		return
@@ -115,6 +115,7 @@ func (tblContentService *TblContentService) GetTblContentInfoAll() (list []blog.
 	db := global.GVA_DB.Model(&blog.TblContent{})
 	var tblContents []blog.TblContent
 	db.Select("id,title,updated_at")
+	db = db.Where("status =?", "允许")
 	err = db.Find(&tblContents).Error
 	return tblContents, total, err
 }
