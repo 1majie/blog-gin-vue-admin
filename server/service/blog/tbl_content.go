@@ -1,6 +1,7 @@
 package blog
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
 	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
@@ -60,6 +61,7 @@ func (tblContentService *TblContentService) GetTblContentSubsets(set string) (li
 	db := global.GVA_DB.Model(&blog.TblContent{})
 	var tblContents []blog.Results
 	err = db.Find(&tblContents).Error
+	db = db.Where("status =?", "允许")
 	db.Select("subset, min(created_at) as created_at").Where("blog_set =?", set).
 		Group("subset").Find(&tblContents)
 	return tblContents, err
@@ -72,6 +74,7 @@ func (tblContentService *TblContentService) GetTblContents(subset string) (list 
 	db := global.GVA_DB.Model(&blog.TblContent{})
 	var tblContents []blog.TblContent
 	db = db.Where("subset =? order by sequence", subset).Select("id,title,summary,created_at")
+	db = db.Where("status =?", "允许")
 	err = db.Find(&tblContents).Error
 	return tblContents, err
 }
@@ -88,10 +91,11 @@ func (tblContentService *TblContentService) GetTblContentInfoList(info blogReq.T
 	if info.StartCreatedAt != nil && info.EndCreatedAt != nil {
 		db = db.Where("created_at BETWEEN ? AND ?", info.StartCreatedAt, info.EndCreatedAt)
 	}
-	if len(info.Title) > 0 {
-		db = db.Where("title LIKE?", "%"+info.Title+"%")
+	fmt.Println(info.Keyword)
+	if len(info.Keyword) > 0 {
+		db = db.Where("title LIKE?", "%"+info.Keyword+"%")
 	}
-	if len(info.Type) != 0 {
+	if len(info.Keyword) == 0 && len(info.Type) != 0 {
 		db = db.Where("type =?", info.Type)
 	}
 	db = db.Where("status =?", "允许")
