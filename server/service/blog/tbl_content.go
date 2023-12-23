@@ -107,7 +107,7 @@ func (tblContentService *TblContentService) GetTblContentInfoList(info blogReq.T
 	if limit != 0 {
 		db = db.Limit(limit).Offset(offset)
 	}
-
+	db.Order("updated_at desc")
 	err = db.Find(&tblContents).Error
 	return tblContents, total, err
 }
@@ -118,7 +118,7 @@ func (tblContentService *TblContentService) GetTblContentInfoAll() (list []blog.
 	// 创建db
 	db := global.GVA_DB.Model(&blog.TblContent{})
 	var tblContents []blog.TblContent
-	db.Select("id,title,updated_at")
+	db.Select("id,title,updated_at,type")
 	db = db.Where("status =?", "允许")
 	err = db.Find(&tblContents).Error
 	return tblContents, total, err

@@ -49,23 +49,20 @@
           <template #default="scope">{{ formatDate(scope.row.CreatedAt) }}</template>
         </el-table-column>
 
-        <el-table-column align="left" label="内容标题" prop="title" width="120" />
+        <el-table-column align="left" label="内容标题" prop="title" width="400" show-overflow-tooltip />
         <el-table-column align="left" label="内容状态" prop="status" width="120" />
         <el-table-column align="left" label="内容摘要" prop="summary" width="120" show-overflow-tooltip />
         <el-table-column align="left" label="内容类别" prop="type" width="120" />
         <el-table-column align="left" label="评论数" prop="commentsNum" width="120" />
-        <el-table-column align="left" label="创建时间" width="180">
-          <template #default="scope">{{ formatDate(scope.row.createTime) }}</template>
-        </el-table-column>
         <el-table-column align="left" label="踩数量" prop="downNum" width="120" />
         <el-table-column align="left" label="点赞数量" prop="likesNum" width="120" />
         <el-table-column align="left" label="分享数量" prop="shareNum" width="120" />
         <el-table-column align="left" label="内容顺序" prop="order" width="120" />
         <el-table-column align="left" label="是否评论" prop="allowComment" width="120" />
         <el-table-column align="left" label="修改时间" width="180">
-          <template #default="scope">{{ formatDate(scope.row.updateTime) }}</template>
+          <template #default="scope">{{ formatDate(scope.row.UpdatedAt) }}</template>
         </el-table-column>
-        <el-table-column align="left" label="浏览数量" prop="viemNum" width="120" />
+        <el-table-column align="left" label="浏览数量" prop="viewNum" width="120" />
         <el-table-column align="left" label="操作" min-width="120">
           <template #default="scope">
             <el-button type="primary" link icon="edit" class="table-button" @click="updateTblContentFunc(scope.row)">变更
@@ -108,7 +105,7 @@
                 <BasicEditor @changeValue="change" :html="formData.content" />
               </div>
               <div v-else-if="formData.editType === 'md'">
-                <MdEditor v-model="formData.content"  @onUploadImg="onUploadImg" />
+                <MdEditor v-model="formData.content" @onUploadImg="onUploadImg" />
               </div>
             </div>
 
@@ -149,7 +146,7 @@
           </el-form-item>
           <el-form-item label="是否评论:" prop="allowComment">
             <el-select v-model="formData.allowComment" :clearable="true" placeholder="请选择是否评论" size="medium">
-              <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+              <el-option v-for="item in artalkOptions" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
           </el-form-item>
         </el-form>
@@ -274,6 +271,17 @@ const formData = ref({
   editType: 'basic',
 })
 const options = [
+  {
+    value: '允许',
+    label: '允许',
+  },
+  {
+    value: '禁止',
+    label: '禁止',
+  }
+]
+
+const artalkOptions = [
   {
     value: '允许',
     label: '允许',
@@ -602,9 +610,6 @@ const change = value => {
   formData.value.content = value;
 };
 
-const selectedEditorComponent = computed(() => {
-  return formData.value.editType === 'basic' ? BasicEditor : MdEditor;
-});
 const path = ref(import.meta.env.VITE_BASE_API)
 const userStore = useUserStore()
 const onUploadImg = async (files, callback) => {
@@ -627,7 +632,7 @@ const onUploadImg = async (files, callback) => {
   );
 
   callback(res.map((item) => {
-    return path.value +item.data.data.file.url;
+    return path.value + "/" + item.data.data.file.url;
   }));
 };
 </script>

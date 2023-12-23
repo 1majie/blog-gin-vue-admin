@@ -65,7 +65,7 @@ func (tblMetaService *TblMetaService)GetTblMetaInfoList(info blogReq.TblMetaSear
 	if limit != 0 {
        db = db.Limit(limit).Offset(offset)
     }
-	
+	db.Order("updated_at desc")
 	err = db.Find(&tblMetas).Error
 	return  tblMetas, total, err
 }
@@ -83,10 +83,11 @@ func (tblMetaService *TblMetaService)GetTblMetaInfoListAll(mateType string) (lis
 	db = db.Where("type = ?",mateType)
 
 	err = db.Count(&total).Error
+
 	if err!=nil {
 		return
 	}
-
+	db.Order("updated_at desc")
 	err = db.Find(&tblMetas).Error
 	return  tblMetas, total, err
 }

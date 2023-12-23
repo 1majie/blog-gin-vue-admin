@@ -1,6 +1,7 @@
 package blog
 
 import (
+	"fmt"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/blog"
 	blogReq "github.com/flipped-aurora/gin-vue-admin/server/model/blog/request"
@@ -120,6 +121,7 @@ func (tblContentApi *TblContentApi) UpdateTblContent(c *gin.Context) {
 	}
 	userId := utils.GetUserID(c)
 	tblContent.AuthorId = &userId
+	fmt.Println(tblContent.Status)
 	if err := tblContentService.UpdateTblContent(tblContent); err != nil {
 		global.GVA_LOG.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
