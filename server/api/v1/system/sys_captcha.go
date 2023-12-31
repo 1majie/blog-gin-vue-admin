@@ -115,7 +115,7 @@ func GetTblContentSubsets(set string, id uint) (meues []blog.Menus, back blog.Tb
 	var afterStatus = false
 	for _, result := range results {
 		var tblContents []blog.TblContent
-		if tblContents, err = tblContentService.GetTblContents(result.Subset); err != nil {
+		if tblContents, err = tblContentService.GetTblContents(set, result.Subset); err != nil {
 			global.GVA_LOG.Error("查询失败!", zap.Error(err))
 		}
 

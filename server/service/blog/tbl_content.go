@@ -69,12 +69,14 @@ func (tblContentService *TblContentService) GetTblContentSubsets(set string) (li
 
 // GetTblContents 根据文章子集获取文章记录
 // Author [piexlmax](https://github.com/piexlmax)
-func (tblContentService *TblContentService) GetTblContents(subset string) (list []blog.TblContent, err error) {
+func (tblContentService *TblContentService) GetTblContents(set, subset string) (list []blog.TblContent, err error) {
 	// 创建db
 	db := global.GVA_DB.Model(&blog.TblContent{})
 	var tblContents []blog.TblContent
-	db = db.Where("subset =? order by sequence", subset).Select("id,title,summary,created_at")
+	db = db.Where("blog_set =?", set)
+	db = db.Where("subset =? ", subset)
 	db = db.Where("status =?", "允许")
+	db = db.Order("sequence desc").Select("id,title,summary,created_at")
 	err = db.Find(&tblContents).Error
 	return tblContents, err
 }
