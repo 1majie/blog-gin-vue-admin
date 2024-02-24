@@ -2,7 +2,7 @@
  * @Author: freedom 957420317@qq.com
  * @Date: 2023-12-06 20:41:55
  * @LastEditors: freedom 957420317@qq.com
- * @LastEditTime: 2023-12-31 10:31:13
+ * @LastEditTime: 2023-12-31 14:16:59
  * @FilePath: \blog_before_vue3_nuxt\README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -75,3 +75,10 @@
 ![](https://www.1majie.com/api/uploads/file/7788f29195a2edf255b072ee25029997_20231231102609.png)
 ##### 文章内容
 ![](https://www.1majie.com/api/uploads/file/905100afa8889d8584ad793d20552c6f_20231231102617.png)
+
+### 安装过程
+
+1. [前期准备](https://www.1majie.com/maintance?id=32&type=)
+2. [管理端部署](https://www.1majie.com/maintance?id=33&type=)
+3. [前端部署](https://www.1majie.com/maintance?id=34&type=)
+4. [其他配置](https://www.1majie.com/maintance?id=35&type=)

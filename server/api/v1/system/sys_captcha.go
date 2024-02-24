@@ -197,7 +197,8 @@ func (b *BaseApi) GetTblContentList(c *gin.Context) {
 		if pageInfo.Page > 1 {
 			beforePage = pageInfo.Page - 1
 		}
-		if pageInfo.Page < int(total)/pageInfo.PageSize {
+		fmt.Println(float64(total) / float64(pageInfo.PageSize))
+		if float64(pageInfo.Page) < float64(total)/float64(pageInfo.PageSize) {
 			nextPage = pageInfo.Page + 1
 		}
 		result := response.PageResult{
